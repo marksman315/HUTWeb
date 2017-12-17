@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using HUTWeb.Models;
 
 namespace HUTWeb.Controllers
 {
@@ -10,7 +11,9 @@ namespace HUTWeb.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            PersonHandler handler = new PersonHandler();
+           
+            return View(handler.GetAll());
         }
 
         public ActionResult About()
