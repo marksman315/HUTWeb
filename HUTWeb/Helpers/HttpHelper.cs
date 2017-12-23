@@ -12,13 +12,7 @@ namespace HUTWeb.Helpers
         public static async Task<string> GetValues(Uri uri)
         {            
             using (var client = GetHttpClient())
-            {
-                //using (var r = await client.GetAsync(uri))
-                //{
-                //    string result = await r.Content.ReadAsStringAsync();
-                //    return result;                                        
-                //}
-
+            {                
                 var result = await client.GetStringAsync(uri).ConfigureAwait(false);
                 return result;
             }
