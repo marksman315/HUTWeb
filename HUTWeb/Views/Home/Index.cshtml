@@ -1,5 +1,6 @@
 ﻿@using HUTModels;
-@model IEnumerable<Person>
+@using HUTWeb.Models;
+@model HomeModel
 @{
     ViewBag.Title = "Home Use Tracker";
 }
@@ -10,12 +11,47 @@
 
 <div class="row">
     <div class="col-md-4">
-        <h2>People/Users</h2>
+        @*<h2>People/Users</h2>
         @foreach (var item in Model)
         {
             <h1>@item.Firstname @item.Lastname</h1>
+        }*@
+        @using (Html.BeginForm())
+        {
+            @Html.DropDownListFor(x => x.Persons, Model.Persons)
+            <div>
+                @Html.TextBox("Weight", null, new { @id = "weightId" })
+            </div>
+            <div>
+                <button onclick="addWeight()" type="button">Add Weight</button>
+            </div>
         }
     </div>
     
     
 </div>
+<script type="text/javascript">
+    function addWeight() {
+        var p = $("#Persons :selected").val();
+        var wv = $("#weightId").val();
+
+        var json = {
+            personId: p,
+            weightValue: wv
+        };
+
+        $.ajax({
+            url: "@Url.Action("RecordWeight", "Home")",
+            dataType: "json",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(json),
+            async: false,
+            processData: false,
+            cache: false,
+            success: function (data) {
+                alert(data);
+            }            
+        })
+    }
+</script>

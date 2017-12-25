@@ -149,6 +149,7 @@
     <Compile Include="Helpers\HttpHelper.cs" />
     <Compile Include="Models\BaseHandler.cs" />
     <Compile Include="Models\CalorieCountHandler.cs" />
+    <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\PersonHandler.cs" />
     <Compile Include="Models\WeightHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -192,6 +193,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\My\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
