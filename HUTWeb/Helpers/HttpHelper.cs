@@ -28,7 +28,8 @@ namespace HUTWeb.Helpers
                 
                 if (httpResponse.Content != null)
                 {
-                    var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);                    
+                    var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    return responseContent.ToString();
                 }
             }
 

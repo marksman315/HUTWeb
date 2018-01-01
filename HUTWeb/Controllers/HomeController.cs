@@ -37,6 +37,17 @@ namespace HUTWeb.Controllers
             return Json("Posted Good");
         }
 
+        [HttpPost]
+        public JsonResult RecordCalories(string personId, string calorieValue)
+        {
+            CalorieCountHandler handler = new CalorieCountHandler();
+            List<CalorieCount> counts = handler.Insert(Convert.ToInt32(personId), Convert.ToInt32(calorieValue), DateTime.Now);
+
+            int total = counts.Select(x => x.Calories).Sum();
+
+            return Json("Total Calories " + total);
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

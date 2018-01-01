@@ -19,17 +19,24 @@
         @using (Html.BeginForm())
         {
             @Html.DropDownListFor(x => x.Persons, Model.Persons)
+            
             <div>
+                <br />
                 @Html.TextBox("Weight", null, new { @id = "weightId" })
+        
+                <button  onclick="addWeight()" type="button">Add Weight</button>
             </div>
+            <br />
             <div>
-                <button onclick="addWeight()" type="button">Add Weight</button>
+                @Html.TextBox("Calories", null, new { @id = "CalorieCountId" })
+
+                <button  onclick="addCalories()" type="button">Add Calories</button>
             </div>
         }
     </div>
-    
-    
+  <div id="totalCalories"></div>
 </div>
+
 <script type="text/javascript">
     function addWeight() {
         var p = $("#Persons :selected").val();
@@ -52,6 +59,32 @@
             success: function (data) {
                 alert(data);
             }            
+        })
+    }
+</script>
+
+<script type="text/javascript">
+    function addCalories() {
+        var p = $("#Persons :selected").val();
+        var cv = $("#CalorieCountId").val();
+
+        var json = {
+            personId: p,
+            calorieValue: cv
+        };
+
+        $.ajax({
+            url: "@Url.Action("RecordCalories", "Home")",
+            dataType: "json",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(json),
+            async: false,
+            processData: false,
+            cache: false,
+            success: function (data) {
+                $('#totalCalories').html(data);
+            }
         })
     }
 </script>
