@@ -1,7 +1,9 @@
 ﻿@using HUTModels;
 @using HUTWeb.Models;
 @model HomeModel
+
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Home Use Tracker";
 }
 
@@ -12,30 +14,32 @@
 <div class="row">
     <div class="col-md-4">
         @*<h2>People/Users</h2>
-        @foreach (var item in Model)
-        {
-            <h1>@item.Firstname @item.Lastname</h1>
-        }*@
+            @foreach (var item in Model)
+            {
+                <h1>@item.Firstname @item.Lastname</h1>
+            }*@
         @using (Html.BeginForm())
         {
-            @Html.DropDownListFor(x => x.Persons, Model.Persons)
-            
+            @Html.DropDownListFor(x => x.Persons, Model.Persons, new { @class = "dropdown" })
+
             <div>
                 <br />
-                @Html.TextBox("Weight", null, new { @id = "weightId" })
-        
-                <button  onclick="addWeight()" type="button">Add Weight</button>
+                @Html.TextBox("Weight", null, new { @id = "weightId", @type = "number" })
+
+                <button class="btn btn-info" onclick="addWeight()" type="button">Add Weight</button>
             </div>
             <br />
             <div>
-                @Html.TextBox("Calories", null, new { @id = "CalorieCountId" })
+                @Html.TextBox("Calories", null, new { @id = "CalorieCountId", @type = "number" })
 
-                <button  onclick="addCalories()" type="button">Add Calories</button>
+                <button class="btn btn-success" onclick="addCalories()" type="button">Add Calories</button>
             </div>
         }
     </div>
-  <div id="totalCalories"></div>
+    <div id="totalCalories"></div>
 </div>
+
+
 
 <script type="text/javascript">
     function addWeight() {
