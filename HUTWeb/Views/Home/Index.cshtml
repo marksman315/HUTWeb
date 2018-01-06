@@ -8,16 +8,12 @@
 }
 
 <div class="jumbotron">
-    <h1>Home Use Tracker</h1>    
+    <h1>Home Use Tracker</h1>
+    <h4 id="CurrentTime" class="CurrentTime"></h4>
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        @*<h2>People/Users</h2>
-            @foreach (var item in Model)
-            {
-                <h1>@item.Firstname @item.Lastname</h1>
-            }*@
         @using (Html.BeginForm())
         {
             @Html.DropDownListFor(x => x.Persons, Model.Persons, new { @class = "dropdown" })
@@ -36,19 +32,32 @@
             </div>
         }
     </div>
-    <div id="totalCalories"></div>
+    <div class="col-md-4" id="totalCalories">
+        <br />
+
+    </div>
 </div>
 
 
 
 <script type="text/javascript">
+    $('document').ready(function () {
+        @* makes sure we get the local time according to where the browser is running *@
+        var m = new Date();       
+        var dateString = $.format.date(m, "MM/dd/yyyy HH:mm");
+
+        $(".CurrentTime").text(dateString);
+    })
+
     function addWeight() {
         var p = $("#Persons :selected").val();
         var wv = $("#weightId").val();
+        var ct = $(".CurrentTime").text();
 
         var json = {
             personId: p,
-            weightValue: wv
+            weightValue: wv,
+            currentTime: ct
         };
 
         $.ajax({
@@ -62,19 +71,19 @@
             cache: false,
             success: function (data) {
                 alert(data);
-            }            
+            }
         })
     }
-</script>
 
-<script type="text/javascript">
     function addCalories() {
         var p = $("#Persons :selected").val();
         var cv = $("#CalorieCountId").val();
+        var ct = $(".CurrentTime").text();
 
         var json = {
             personId: p,
-            calorieValue: cv
+            calorieValue: cv,
+            currentTime: ct
         };
 
         $.ajax({

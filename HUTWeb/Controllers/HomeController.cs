@@ -29,19 +29,21 @@ namespace HUTWeb.Controllers
         }
 
         [HttpPost]
-        public JsonResult RecordWeight(string personId, string weightValue)
-        {           
+        public JsonResult RecordWeight(string personId, string weightValue, string currentTime)
+        {
+            DateTime localTime = DateTime.Parse(currentTime);
             WeightHandler handler = new WeightHandler();
-            handler.Insert(Convert.ToInt32(personId), Convert.ToDecimal(weightValue), DateTime.Now);
+            handler.Insert(Convert.ToInt32(personId), Convert.ToDecimal(weightValue), localTime);
 
             return Json("Posted Good");
         }
 
         [HttpPost]
-        public JsonResult RecordCalories(string personId, string calorieValue)
+        public JsonResult RecordCalories(string personId, string calorieValue, string currentTime)
         {
+            DateTime localTime = DateTime.Parse(currentTime);
             CalorieCountHandler handler = new CalorieCountHandler();
-            List<CalorieCount> counts = handler.Insert(Convert.ToInt32(personId), Convert.ToInt32(calorieValue), DateTime.Now);
+            List<CalorieCount> counts = handler.Insert(Convert.ToInt32(personId), Convert.ToInt32(calorieValue), localTime);
 
             int total = counts.Select(x => x.Calories).Sum();
 
