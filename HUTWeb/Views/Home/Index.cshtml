@@ -51,6 +51,8 @@
             $(".CurrentTime").text(dateString);
         }
 
+        setTime();
+
         @* refresh clock every minute *@
         setInterval(setTime, 60000);
     })
