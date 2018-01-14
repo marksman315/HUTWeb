@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using HUTModels;
 using HUTWeb.Helpers;
+using Newtonsoft.Json;
 
 namespace HUTWeb.Models
 {
@@ -26,6 +26,39 @@ namespace HUTWeb.Models
 
             // the result is always going to be null for now
             var result = HttpHelper.PostValues(uri, weightModel).Result;
+        }
+
+        public List<Weight> GetWeights(int personId, DateTime startDate, DateTime endDate)
+        {
+            Uri uri = new Uri(this.BaseWebAPIURL + "Weight?personId=" + personId + "&startDate=" + startDate.ToString("MM-dd-yyyy") + "&endDate=" + endDate.ToString("MM-dd-yyyy"));
+
+            var result = HttpHelper.GetValues(uri).Result;
+
+            if (result != null)
+            {
+                List<Weight> weights = JsonConvert.DeserializeObject<List<Weight>>(result);
+                return weights;
+            }
+
+            return null;
+        }
+
+        public List<WeightAndDateModel> GetWeightsAndDates(int personId, DateTime startDate, DateTime endDate)
+        {
+            List<Weight> weights = GetWeights(personId, startDate, endDate);
+
+            if (weights != null)
+            {
+                List<WeightAndDateModel> list = weights.Select(item => new WeightAndDateModel()
+                                                                        {
+                                                                            Date = item.DateEntered.ToString("MM/dd/yyyy"),
+                                                                            Weight = item.WeightAmount.ToString()
+                                                                        }).ToList<WeightAndDateModel>();
+
+                return list;
+            }
+
+            return null;
         }
     }
 }

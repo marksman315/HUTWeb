@@ -9,7 +9,7 @@
 
 <div class="jumbotron">
     <h1>Home Use Tracker</h1>
-    <h4 id="CurrentTime" class="CurrentTime"></h4>
+    <h4 id="CurrentDateTime" class="CurrentDateTime"></h4>
 </div>
 
 <div class="row">
@@ -30,9 +30,17 @@
 
                 <button class="btn btn-success" onclick="addCalories()" type="button">Add Calories</button>
             </div>
+            <br />
+            <div>
+                <button class="btn btn-warning" onclick="getWeightsForLastThirtyDays()" type="button">Get Weights for Last 30 Days</button>
+            </div>
         }
     </div>
     <div class="col-md-4" id="totalCalories">
+        <br />
+
+    </div>
+    <div class="col-md-4" id="weightsForLastThirtyDays">
         <br />
 
     </div>
@@ -44,11 +52,11 @@
     $('document').ready(function () {
 
         @* makes sure we get the local time according to where the browser is running *@
-        var setTime = function () {            
+        var setTime = function () {
             var m = new Date();
             var dateString = $.format.date(m, "MM/dd/yyyy HH:mm");
 
-            $(".CurrentTime").text(dateString);
+            $(".CurrentDateTime").text(dateString);
         }
 
         setTime();
@@ -60,12 +68,12 @@
     function addWeight() {
         var p = $("#Persons :selected").val();
         var wv = $("#weightId").val();
-        var ct = $(".CurrentTime").text();
+        var ct = $(".CurrentDateTime").text();
 
         var json = {
             personId: p,
             weightValue: wv,
-            currentTime: ct
+            currentDateTime: ct
         };
 
         $.ajax({
@@ -74,7 +82,7 @@
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(json),
-            async: false,
+            async: true,
             processData: false,
             cache: false,
             success: function (data) {
@@ -86,12 +94,12 @@
     function addCalories() {
         var p = $("#Persons :selected").val();
         var cv = $("#CalorieCountId").val();
-        var ct = $(".CurrentTime").text();
+        var ct = $(".CurrentDateTime").text();
 
         var json = {
             personId: p,
             calorieValue: cv,
-            currentTime: ct
+            currentDateTime: ct
         };
 
         $.ajax({
@@ -100,12 +108,48 @@
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(json),
-            async: false,
+            async: true,
             processData: false,
             cache: false,
             success: function (data) {
                 $('#totalCalories').html(data);
             }
         })
+    }
+
+    function getWeightsForLastThirtyDays() {
+        var p = $("#Persons :selected").val();
+        var ct = $(".CurrentDateTime").text();
+
+        var json = {
+            personId: p,
+            currentDateTime: ct
+        };
+
+        $.ajax({
+            url: "@Url.Action("GetWeightForLastThrityDays", "Home")",
+            dataType: "json",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(json),
+            async: true,
+            processData: false,
+            cache: false,
+            success: function (data) {
+                $('#weightsForLastThirtyDays').html(displayWeights(data));
+            }
+        })
+    }
+
+    function displayWeights(data) {
+        var html = "";
+
+        for (var i = 0; i < data.length; i++) {
+            html += "Weight:" + data[i].Weight + " &#09;";
+            html += "Date:" + data[i].Date;
+            html += "<br/>";
+        }
+
+        return html;
     }
 </script>
