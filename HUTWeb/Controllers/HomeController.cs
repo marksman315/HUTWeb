@@ -57,7 +57,9 @@ namespace HUTWeb.Controllers
             DateTime startDate = endDate.AddDays(-30);
             WeightHandler handler = new WeightHandler();
 
-            List<WeightAndDateModel> weightAndDateModel = handler.GetWeightsAndDates(Convert.ToInt32(personId), startDate, endDate);
+            //List<WeightAndDateModel> weightAndDateModel = handler.GetWeightsAndDates(Convert.ToInt32(personId), startDate, endDate);
+
+            List<XYModel> weightAndDateModel = handler.GetWeightsAndDatesAsXAndY(Convert.ToInt32(personId), startDate, endDate);
 
             return Json(weightAndDateModel);
         }
