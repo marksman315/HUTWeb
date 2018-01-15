@@ -36,13 +36,16 @@
             </div>
         }
     </div>
-    <div class="col-md-4" id="totalCalories">
+    <div class="col-md-2" id="totalCalories">
         <br />
 
     </div>
-    <div class="col-md-4" id="weightsForLastThirtyDays">
+    @*<div class="col-md-4" id="weightsForLastThirtyDays">
         <br />
 
+    </div>*@
+    <div class="col-md-6">
+        <canvas id="myChart" width="400" height="400"></canvas>
     </div>
 </div>
 
@@ -136,20 +139,59 @@
             processData: false,
             cache: false,
             success: function (data) {
-                $('#weightsForLastThirtyDays').html(displayWeights(data));
+                //$('#weightsForLastThirtyDays').html(displayWeights(data));
+                populateChart(data);
             }
         })
     }
 
-    function displayWeights(data) {
-        var html = "";
+    //function displayWeights(data) {
+    //    var html = "";
 
-        for (var i = 0; i < data.length; i++) {
-            html += "Weight:" + data[i].Weight + " &#09;";
-            html += "Date:" + data[i].Date;
-            html += "<br/>";
-        }
+    //    for (var i = 0; i < data.length; i++) {
+    //        html += "Weight:" + data[i].Weight + " &#09;";
+    //        html += "Date:" + data[i].Date;
+    //        html += "<br/>";
+    //    }
 
-        return html;
+    //    return html;
+    //}
+
+    function populateChart(data) {        
+        var ctx = document.getElementById('myChart').getContext('2d');
+
+        var allXValues = []; // create array here
+        $.each(data, function (index, value) {
+            allXValues.push(value.x); //push values here
+        });
+
+        var allYValues = []; // create array here
+        $.each(data, function (index, value) {
+            allYValues.push(value.y); //push values here
+        });
+        
+        var chart = new Chart(ctx, {
+            type: 'bar',            
+            data: {
+                labels: allXValues,
+                datasets: [{
+                    label: "Weight",
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',                    
+                    data: allYValues,
+                }]
+            },
+
+            options: {
+                scales: {
+                    xAxes: [{
+                        time: {
+                            unit: "day"
+                        }
+                    }]
+                }
+            }
+            
+        });
     }
 </script>

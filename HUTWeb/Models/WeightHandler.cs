@@ -60,5 +60,23 @@ namespace HUTWeb.Models
 
             return null;
         }
+
+        public List<XYModel> GetWeightsAndDatesAsXAndY(int personId, DateTime startDate, DateTime endDate)
+        {
+            List<Weight> weights = GetWeights(personId, startDate, endDate);
+
+            if (weights != null)
+            {
+                List<XYModel> list = weights.Select(item => new XYModel()
+                                                                {
+                                                                    x = item.DateEntered.ToString("MM/dd/yyyy"),
+                                                                    y = item.WeightAmount.ToString()
+                                                                }).ToList<XYModel>();
+
+                return list;
+            }
+
+            return null;
+        }
     }
 }

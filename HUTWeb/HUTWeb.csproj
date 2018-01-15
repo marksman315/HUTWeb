@@ -153,6 +153,7 @@
     <Compile Include="Models\PersonHandler.cs" />
     <Compile Include="Models\WeightAndDateModel.cs" />
     <Compile Include="Models\WeightHandler.cs" />
+    <Compile Include="Models\XYModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
