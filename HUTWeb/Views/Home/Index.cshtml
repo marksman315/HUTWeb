@@ -7,8 +7,8 @@
     ViewBag.Title = "Home Use Tracker";
 }
 
+<br/>
 <div class="jumbotron">
-    <h1>Home Use Tracker</h1>
     <h4 id="CurrentDateTime" class="CurrentDateTime"></h4>
 </div>
 
@@ -63,6 +63,8 @@
 
         @* refresh clock every minute *@
         setInterval(setTime, 60000);
+
+        getWeightsForLastThirtyDays();
     })
 
     function addWeight() {
@@ -117,6 +119,8 @@
         })
     }
 
+    
+
     function getWeightsForLastThirtyDays() {
         var p = $("#Persons :selected").val();
         var ct = $(".CurrentDateTime").text();
@@ -152,4 +156,9 @@
 
         return html;
     }
+
+
+
+
 </script>
+

@@ -28,7 +28,11 @@ textarea {
 }
 
 .dropdown {
-   line-height: 80px;
-    
+   line-height: 80px;   
 
+}
+
+.jumbotron {
+    background-color: rgba(68, 202, 193, 1);
+    padding: 10px;
 }

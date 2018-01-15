@@ -55,6 +55,18 @@ namespace HUTWeb.Models
                                                                             Weight = item.WeightAmount.ToString()
                                                                         }).ToList<WeightAndDateModel>();
 
+                // this is how it looks like in plain language
+                //List<WeightAndDateModel> list = new List<WeightAndDateModel>();
+
+                //foreach (Weight item in weights)
+                //{
+                //    WeightAndDateModel model = new WeightAndDateModel();
+                //    model.Date = item.DateEntered.ToString("MM/dd/yyyy");
+                //    model.Weight = item.WeightAmount.ToString();                                                    
+
+                //    list.Add(model);
+                //}
+
                 return list;
             }
 
