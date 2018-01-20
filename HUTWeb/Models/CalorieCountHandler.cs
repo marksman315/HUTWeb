@@ -37,5 +37,38 @@ namespace HUTWeb.Models
 
             return null;
         }
+
+        public List<CalorieCount> GetTotalsPerDayInDateRange(int personId, DateTime startDate, DateTime endDate)
+        {
+            Uri uri = new Uri(this.BaseWebAPIURL + "CalorieCount/GetTotalsPerDayInDateRange?personId=" + personId + "&startDate=" + startDate.ToString("MM-dd-yyyy") + "&endDate=" + endDate.ToString("MM-dd-yyyy"));
+
+            var result = HttpHelper.GetValues(uri).Result;
+
+            if (result != null)
+            {
+                List<CalorieCount> calorieCounts = JsonConvert.DeserializeObject<List<CalorieCount>>(result);
+                return calorieCounts;
+            }
+
+            return null;
+        }
+
+        public List<XYModel> GetCaloriesAndDatesAsXAndY(int personId, DateTime startDate, DateTime endDate)
+        {
+            List<CalorieCount> counts = GetTotalsPerDayInDateRange(personId, startDate, endDate);
+
+            if (counts != null)
+            {
+                List<XYModel> list = counts.Select(item => new XYModel()
+                                                    {
+                                                        x = item.DatetimeEntered.ToString("MM/dd/yyyy"),
+                                                        y = item.Calories.ToString()
+                                                    }).ToList<XYModel>();
+
+                return list;
+            }
+
+            return null;
+        }
     }    
 }

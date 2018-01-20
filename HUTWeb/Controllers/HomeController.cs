@@ -51,17 +51,26 @@ namespace HUTWeb.Controllers
             return Json("Total Calories " + total);
         }
 
-        public JsonResult GetWeightForLastThrityDays(string personId, string currentDateTime)
+        public JsonResult GetWeightForLastThirtyDays(string personId, string currentDateTime)
         {
             DateTime endDate = DateTime.Parse(currentDateTime);
             DateTime startDate = endDate.AddDays(-30);
-            WeightHandler handler = new WeightHandler();
-
-            //List<WeightAndDateModel> weightAndDateModel = handler.GetWeightsAndDates(Convert.ToInt32(personId), startDate, endDate);
+            WeightHandler handler = new WeightHandler();            
 
             List<XYModel> weightAndDateModel = handler.GetWeightsAndDatesAsXAndY(Convert.ToInt32(personId), startDate, endDate);
 
             return Json(weightAndDateModel);
+        }
+
+        public JsonResult GetCaloriesForLastThirtyDays(string personId, string currentDateTime)
+        {
+            DateTime endDate = DateTime.Parse(currentDateTime);
+            DateTime startDate = endDate.AddDays(-30);
+            CalorieCountHandler handler = new CalorieCountHandler();
+
+            List<XYModel> calorieAndDateModel = handler.GetCaloriesAndDatesAsXAndY(Convert.ToInt32(personId), startDate, endDate);
+
+            return Json(calorieAndDateModel);
         }
 
         public ActionResult About()
