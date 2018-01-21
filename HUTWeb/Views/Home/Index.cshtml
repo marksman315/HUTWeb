@@ -7,9 +7,8 @@
     ViewBag.Title = "Home Use Tracker";
 }
 
-<br/>
 <div>
-    <h4 id="CurrentDateTime" class="CurrentDateTime"></h4>
+    <label id="CurrentDateTime" class="CurrentDateTime"></label>
 </div>
 
 <div class="row">
@@ -29,6 +28,10 @@
                 @Html.TextBox("Calories", null, new { @id = "CalorieCountId", @type = "number" })
 
                 <button class="btn btn-success" onclick="addCalories()" type="button">Add Calories</button>
+
+                <div id="totalCalories">
+                    <br />
+                </div>
             </div>
             <br />
             <div>
@@ -40,13 +43,10 @@
             </div>
         }
     </div>
-    <div class="col-md-2" id="totalCalories">
-        <br />
-
-    </div>    
-    <div class="col-md-6">
-        <canvas id="myWeightChart" width="400" height="400"></canvas>
-        <canvas id="myCalorieChart" width="400" height="400"></canvas>
+      
+    <div class="col-md-8">
+        <canvas id="myWeightChart" width="400" height="300"></canvas>
+        <canvas id="myCalorieChart" width="400" height="300"></canvas>
     </div>
 </div>
 

@@ -22,17 +22,19 @@ select,
 textarea {
     max-width: 130px;
     height: 40px;
-   padding: 4px;
-   margin: 4px;
-   
+    padding: 4px;
+    margin: 4px;
 }
 
 .dropdown {
    line-height: 80px;   
-
 }
 
-.jumbotron {
+/*.jumbotron {
     background-color: rgba(68, 202, 193, 1);
     padding: 10px;
+}*/
+
+.CurrentDateTime {     
+    text-align: right;
 }
