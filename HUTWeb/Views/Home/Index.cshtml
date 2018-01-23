@@ -231,7 +231,8 @@
                 labels: allXValues,
                 datasets: [{
                     label: "Calories",
-                    backgroundColor: 'rgb(37, 165, 14)',
+                    //backgroundColor: 'rgb(37, 165, 14)',
+                    backgroundColor: calorieColor(allYValues),
                     borderColor: 'rgb(37, 165, 14)',
                     data: allYValues,
                 }]
@@ -248,6 +249,20 @@
             }
 
         });
+    }
+
+    function calorieColor(allYValues) {
+        var colors = [];
+
+        for (var i = 0; i < allYValues.length; i++) {
+            if (allYValues[i] === "2000") {
+                colors.push('rgb(216, 12, 8)');            
+            } else {
+                colors.push('rgb(37, 165, 14)');
+            }
+        }
+
+        return colors;
     }
 
 </script>
