@@ -7,10 +7,10 @@
     ViewBag.Title = "Home Use Tracker";
 }
 
-<div>
+@*<div>
     <label id="CurrentDateTime" class="CurrentDateTime"></label>
-</div>
-
+</div>*@
+<br/>
 <div class="row">
     <div class="col-md-4">
         @using (Html.BeginForm())
@@ -56,19 +56,19 @@
     $('document').ready(function () {
 
         @* makes sure we get the local time according to where the browser is running *@
-        var setTime = function () {
-            var m = new Date();
-            var dateString = $.format.date(m, "MM/dd/yyyy HH:mm");
+        //var setTime = function () {
+        //    var m = new Date();
+        //    var dateString = $.format.date(m, "MM/dd/yyyy HH:mm");
 
-            $(".CurrentDateTime").text(dateString);
-        }
+        //    $(".CurrentDateTime").text(dateString);
+        //}
 
-        setTime();
+        //setTime();
 
         @* refresh clock every minute *@
-        setInterval(setTime, 60000);
+        //setInterval(setTime, 60000);
 
-        getWeightsForLastThirtyDays();
+        //getWeightsForLastThirtyDays();
     })
 
     function addWeight() {

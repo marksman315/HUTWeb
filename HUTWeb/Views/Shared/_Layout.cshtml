@@ -31,7 +31,7 @@
     </script>
 </head>
 <body>
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -43,11 +43,14 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>                    
+                    <li>@Html.ActionLink("Calories/Weight", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Foods", "Index", "Food")</li>
+                    <li>@Html.ActionLink("Recipes", "Index", "Recipe")</li>
+                    <li><label id="CurrentDateTime" class="CurrentDateTime"/></li>
                 </ul>
             </div>
         </div>
-    </div>*@
+    </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -57,3 +60,21 @@
     </div>
 </body>
 </html>
+
+<script type="text/javascript">
+    $('document').ready(function () {
+
+        @* makes sure we get the local time according to where the browser is running *@
+        var setTime = function () {
+            var m = new Date();
+            var dateString = $.format.date(m, "MM/dd/yyyy HH:mm");
+
+            $(".CurrentDateTime").text(dateString);
+        }
+
+        setTime();
+
+        @* refresh clock every minute *@
+        setInterval(setTime, 60000);        
+    })
+</script>

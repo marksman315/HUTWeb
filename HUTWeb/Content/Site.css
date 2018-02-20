@@ -35,6 +35,11 @@ textarea {
     padding: 10px;
 }*/
 
-.CurrentDateTime {     
+.CurrentDateTime {
     text-align: right;
+    position: relative;
+    display: block;
+    padding: 15px 15px;
+    margin-bottom: 0px;
+    color: white;
 }
