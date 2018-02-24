@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 
-namespace HUTWeb.Models
+namespace HUTWeb.Handlers
 {    
     public class BaseHandler
     {

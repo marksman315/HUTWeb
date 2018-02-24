@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using HUTModels;
 using HUTWeb.Helpers;
+using HUTWeb.Models;
 using Newtonsoft.Json;
 
-namespace HUTWeb.Models
+namespace HUTWeb.Handlers
 {
     public class WeightHandler : BaseHandler
     {

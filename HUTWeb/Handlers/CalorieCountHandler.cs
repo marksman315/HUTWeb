@@ -4,9 +4,10 @@ using System.Linq;
 using System.Web;
 using HUTModels;
 using HUTWeb.Helpers;
+using HUTWeb.Models;
 using Newtonsoft.Json;
 
-namespace HUTWeb.Models
+namespace HUTWeb.Handlers
 {
     public class CalorieCountHandler : BaseHandler
     {

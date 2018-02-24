@@ -6,7 +6,7 @@ using HUTModels;
 using HUTWeb.Helpers;
 using Newtonsoft.Json;
 
-namespace HUTWeb.Models
+namespace HUTWeb.Handlers
 {
     public class PersonHandler : BaseHandler
     {

@@ -7,9 +7,6 @@
     ViewBag.Title = "Home Use Tracker";
 }
 
-@*<div>
-    <label id="CurrentDateTime" class="CurrentDateTime"></label>
-</div>*@
 <br/>
 <div class="row">
     <div class="col-md-4">
@@ -52,24 +49,7 @@
 
 
 
-<script type="text/javascript">
-    $('document').ready(function () {
-
-        @* makes sure we get the local time according to where the browser is running *@
-        //var setTime = function () {
-        //    var m = new Date();
-        //    var dateString = $.format.date(m, "MM/dd/yyyy HH:mm");
-
-        //    $(".CurrentDateTime").text(dateString);
-        //}
-
-        //setTime();
-
-        @* refresh clock every minute *@
-        //setInterval(setTime, 60000);
-
-        //getWeightsForLastThirtyDays();
-    })
+<script type="text/javascript">    
 
     function addWeight() {
         var p = $("#Persons :selected").val();
@@ -143,7 +123,7 @@
             async: true,
             processData: false,
             cache: false,
-            success: function (data) {
+            success: function (data) {                
                 populateWeightChart(data);
             }
         })
