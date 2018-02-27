@@ -5,19 +5,54 @@ using System.Web;
 using System.Web.Mvc;
 using HUTModels;
 using HUTWeb.Handlers;
+using HUTWeb.Models;
 
 namespace HUTWeb.Controllers
 {
     public class FoodController : Controller
     {
-        // GET: Food
-        public ActionResult GetListOfFoods()
+        public ActionResult Index()
         {
             FoodHandler handler = new FoodHandler();
             List<Food> foods = handler.GetListOfFoods();
 
-            return View();
-        }       
+            FoodListModel model = new FoodListModel();
+
+            foreach (var food in foods)
+            {
+                model.FoodNames.Add(food.Description);
+            }
+
+            return View("Foods", model);
+        }
+
+        //GET: Food
+        public JsonResult GetListOfFoods(string searchTerm)
+        {
+            FoodHandler handler = new FoodHandler();
+            List<Food> foods = handler.GetListOfFoods();
+
+            FoodListModel model = new FoodListModel();
+
+            if (searchTerm != null)
+            {
+                foreach (var food in foods.Where(x => x.Description.ToLower().Contains(searchTerm.ToLower())))
+                {
+                    model.FoodNames.Add(food.Description);
+                }
+            }
+            else
+            {
+                foreach (var food in foods)
+                {
+                    model.FoodNames.Add(food.Description);
+                }
+            }
+
+            return Json(model.FoodNames, JsonRequestBehavior.AllowGet);
+
+            //return Json(foods, JsonRequestBehavior.AllowGet);
+        }
 
         // POST: Food/Create
         [HttpPost]

@@ -4,5 +4,73 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Foods</h2>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+<h3>Search for an existing food item to edit or add a new food</h3>
+<br />
+<div id="foodsDiv">
+    <div class="col-md-12 ui-widget">
+        <h4>Search</h4>        
+        <input id="searchFood" class="FoodsText" type="text" maxlength="200" />        
+        <button class="btn btn-info" onclick="selectFood()" type="button">Select</button>
+    </div>
+    <br />
+    <div class="col-md-12">
+        <h4>Add/Edit Food</h4>
+        <h5>Food Name</h5>
+        <input id="editableFood" class="FoodsText" type="text" maxlength="200" />
+        <br />
+        <h5>Calories Per 100 Grams</h5>
+        <input id="caloriesPer100Grams" type="number" />
+        <button class="btn btn-success" onclick="saveFood()" type="button">Save</button>
+    </div>
+    <br />
+</div>
+
+<script type="text/javascript">
+    $("document").ready(function () {
+
+        //var cache = {};
+        //$("#searchFood").autocomplete({
+        //    minLength: 2,
+        //    source: function( request, response ) {
+        //        var term = request.term;
+        //        if ( term in cache ) {
+        //          response( cache[ term ] );
+        //          return;
+        //        }
+
+        //        $.getJSON( "Food/GetListOfFoods", request, function( data, status, xhr ) {
+        //          cache[ term ] = data;
+        //          response( data );
+        //        });
+        //    }
+        //});
+
+
+
+        $("#searchFood").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "Food/GetListOfFoods",
+                    dataType: "json",
+                    data: {
+                        searchTerm: request.term
+                    },
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+            },
+            minLength: 1,
+            select: function (event, ui) {
+                $("editableFood").val = ui.item.Description;
+                //$("editableFood").val = ui.item.Description;
+                //$("caloriesPer100Grams").val = ui.item.CaloriesPer100Grams;
+
+                //log("Selected: " + ui.item.value + " aka " + ui.item.id);
+            }
+        });
+    })
+
+</script>
