@@ -13,45 +13,26 @@ namespace HUTWeb.Controllers
     {
         public ActionResult Index()
         {
-            FoodHandler handler = new FoodHandler();
-            List<Food> foods = handler.GetListOfFoods();
+            //FoodHandler handler = new FoodHandler();
+            //List<Food> foods = handler.GetListOfFoods();
 
-            FoodListModel model = new FoodListModel();
+            //FoodListModel model = new FoodListModel();
 
-            foreach (var food in foods)
-            {
-                model.FoodNames.Add(food.Description);
-            }
+            //foreach (var food in foods)
+            //{
+            //    model.FoodNames.Add(food.Description);
+            //}
 
-            return View("Foods", model);
+            return View("Foods");
         }
 
         //GET: Food
         public JsonResult GetListOfFoods(string searchTerm)
         {
             FoodHandler handler = new FoodHandler();
-            List<Food> foods = handler.GetListOfFoods();
+            List<Food> foods = handler.GetFilteredListOfFoods(searchTerm);            
 
-            FoodListModel model = new FoodListModel();
-
-            if (searchTerm != null)
-            {
-                foreach (var food in foods.Where(x => x.Description.ToLower().Contains(searchTerm.ToLower())))
-                {
-                    model.FoodNames.Add(food.Description);
-                }
-            }
-            else
-            {
-                foreach (var food in foods)
-                {
-                    model.FoodNames.Add(food.Description);
-                }
-            }
-
-            return Json(model.FoodNames, JsonRequestBehavior.AllowGet);
-
-            //return Json(foods, JsonRequestBehavior.AllowGet);
+            return Json(foods, JsonRequestBehavior.AllowGet);            
         }
 
         // POST: Food/Create

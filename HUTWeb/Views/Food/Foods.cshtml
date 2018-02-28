@@ -22,6 +22,7 @@
         <br />
         <h5>Calories Per 100 Grams</h5>
         <input id="caloriesPer100Grams" type="number" />
+        <input id="foodId" type="number" hidden />
         <button class="btn btn-success" onclick="saveFood()" type="button">Save</button>
     </div>
     <br />
@@ -29,25 +30,6 @@
 
 <script type="text/javascript">
     $("document").ready(function () {
-
-        //var cache = {};
-        //$("#searchFood").autocomplete({
-        //    minLength: 2,
-        //    source: function( request, response ) {
-        //        var term = request.term;
-        //        if ( term in cache ) {
-        //          response( cache[ term ] );
-        //          return;
-        //        }
-
-        //        $.getJSON( "Food/GetListOfFoods", request, function( data, status, xhr ) {
-        //          cache[ term ] = data;
-        //          response( data );
-        //        });
-        //    }
-        //});
-
-
 
         $("#searchFood").autocomplete({
             source: function (request, response) {
@@ -58,17 +40,22 @@
                         searchTerm: request.term
                     },
                     success: function (data) {
-                        response(data);
+                        response($.map(data, function (item) {
+                            return {
+                                @* must use "label" or else the description will not show *@
+                                label: item.Description,
+                                caloriesPer100Grams: item.CaloriesPer100Grams,
+                                foodId: item.FoodId
+                            };
+                        }));
                     }
                 });
             },
             minLength: 1,
             select: function (event, ui) {
-                $("editableFood").val = ui.item.Description;
-                //$("editableFood").val = ui.item.Description;
-                //$("caloriesPer100Grams").val = ui.item.CaloriesPer100Grams;
-
-                //log("Selected: " + ui.item.value + " aka " + ui.item.id);
+                $("#editableFood").val(ui.item.label);                
+                $("#caloriesPer100Grams").val(ui.item.caloriesPer100Grams);
+                $("#foodId").val(ui.item.foodId);
             }
         });
     })

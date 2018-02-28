@@ -162,7 +162,6 @@
     <Compile Include="Handlers\BaseHandler.cs" />
     <Compile Include="Handlers\CalorieCountHandler.cs" />
     <Compile Include="Handlers\FoodHandler.cs" />
-    <Compile Include="Models\FoodListModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Handlers\PersonHandler.cs" />
     <Compile Include="Models\WeightAndDateModel.cs" />

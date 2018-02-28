@@ -38,6 +38,8 @@ namespace HUTWeb.Handlers
 
         public List<Food> GetListOfFoods()
         {
+            List<Food> foods = new List<Food>();
+
             if (mustRefreshCache || foodCache["foods"] == null)
             {
                 Uri uri = new Uri(this.BaseWebAPIURL + "Food/GetListOfFoods");
@@ -46,19 +48,30 @@ namespace HUTWeb.Handlers
 
                 if (result != null)
                 {
-                    List<Food> foods = JsonConvert.DeserializeObject<List<Food>>(result);
-                    foodCache.Set("foods", foods, DateTimeOffset.Now.AddHours(4));
-
-                    return foods;
+                    foods = JsonConvert.DeserializeObject<List<Food>>(result);
+                    foodCache.Set("foods", foods, DateTimeOffset.Now.AddHours(4));                    
                 }
             }
             else
             {
-                List<Food> foods = foodCache["foods"] as List<Food>;
-                return foods;
+                foods = foodCache["foods"] as List<Food>;                
             }
 
-            return null;
+            return foods;
+        }
+
+        public List<Food> GetFilteredListOfFoods(string searchTerm)
+        {
+            List<Food> foods = GetListOfFoods();
+
+            if (String.IsNullOrWhiteSpace(searchTerm))
+            {
+                return foods;
+            }
+            else
+            {
+                return foods.Where(x => x.Description.ToLower().Contains(searchTerm.ToLower())).ToList<Food>();
+            }
         }
     }
 }
