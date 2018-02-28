@@ -39,6 +39,17 @@ namespace HUTWeb.Handlers
             return null;
         }
 
+        public bool InsertCalorieCountOffDay(int personId, DateTime datetimeEntered)
+        {
+            Uri uri = new Uri(this.BaseWebAPIURL + "CalorieCountOffDay");
+            CalorieCountOffDay offDayModel = new CalorieCountOffDay() { PersonId = personId, DateEntered = datetimeEntered.Date };
+
+            var result = HttpHelper.PostValues(uri, offDayModel);
+
+            // always true for now
+            return true;
+        }
+
         public List<CalorieCount> GetTotalsPerDayInDateRange(int personId, DateTime startDate, DateTime endDate)
         {
             Uri uri = new Uri(this.BaseWebAPIURL + "CalorieCount/GetTotalsPerDayInDateRange?personId=" + personId + "&startDate=" + startDate.ToString("MM-dd-yyyy") + "&endDate=" + endDate.ToString("MM-dd-yyyy"));

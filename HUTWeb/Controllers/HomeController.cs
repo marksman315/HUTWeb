@@ -50,6 +50,16 @@ namespace HUTWeb.Controllers
             return Json("Total Calories " + total);
         }
 
+        [HttpPost]
+        public JsonResult RecordCalorieCountOffDay(string personId, string currentDateTime)
+        {
+            DateTime localTime = DateTime.Parse(currentDateTime);
+            CalorieCountHandler handler = new CalorieCountHandler();
+            handler.InsertCalorieCountOffDay(Convert.ToInt32(personId), localTime);
+
+            return Json("Off day recorded");
+        }
+
         public JsonResult GetWeightForLastThirtyDays(string personId, string currentDateTime)
         {
             DateTime endDate = DateTime.Parse(currentDateTime);
@@ -72,18 +82,6 @@ namespace HUTWeb.Controllers
             return Json(calorieAndDateModel);
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+       
     }
 }

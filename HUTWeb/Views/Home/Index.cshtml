@@ -38,6 +38,13 @@
             <div>
                 <button class="btn btn-warning" onclick="getCaloriesForLastThirtyDays()" type="button">Get Calories for Last 30 Days</button>
             </div>
+            <br />
+            <div>
+                <button class="btn btn-danger" onclick="setCalorieCountOffDay()" type="button">Set Calorie Count Off Day</button>
+                <div id="offDayRecorded">
+                    <br />
+                </div>
+            </div>
         }
     </div>
       
@@ -49,7 +56,8 @@
 
 
 
-<script type="text/javascript">    
+<script type="text/javascript">
+
 
     function addWeight() {
         var p = $("#Persons :selected").val();
@@ -103,7 +111,31 @@
         })
     }
 
+    function setCalorieCountOffDay() {
+        if (confirm("Are you sure?")) {
+            var p = $("#Persons :selected").val();
+            var ct = $(".CurrentDateTime").text();
 
+            var json = {
+                personId: p,
+                currentDateTime: ct
+            };
+
+            $.ajax({
+                url: "@Url.Action("RecordCalorieCountOffDay", "Home")",
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(json),
+                async: true,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    $('#offDayRecorded').html(data);
+                }
+            })
+        }
+    }
 
     function getWeightsForLastThirtyDays() {
         var p = $("#Persons :selected").val();
@@ -123,13 +155,13 @@
             async: true,
             processData: false,
             cache: false,
-            success: function (data) {                
+            success: function (data) {
                 populateWeightChart(data);
             }
         })
     }
 
-    function populateWeightChart(data) {        
+    function populateWeightChart(data) {
         var ctx = document.getElementById('myWeightChart').getContext('2d');
 
         var allXValues = []; // create array here
@@ -236,7 +268,7 @@
 
         for (var i = 0; i < allYValues.length; i++) {
             if (allYValues[i] === "2000") {
-                colors.push('rgb(216, 12, 8)');            
+                colors.push('rgb(216, 12, 8)');
             } else {
                 colors.push('rgb(37, 165, 14)');
             }
