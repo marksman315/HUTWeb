@@ -34,7 +34,7 @@
         $("#searchFood").autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "Food/GetListOfFoods",
+                    url: "@Url.Action("GetListOfFoods", "Food")",
                     dataType: "json",
                     data: {
                         searchTerm: request.term
@@ -53,7 +53,7 @@
             },
             minLength: 1,
             select: function (event, ui) {
-                $("#editableFood").val(ui.item.label);                
+                $("#editableFood").val(ui.item.label);
                 $("#caloriesPer100Grams").val(ui.item.caloriesPer100Grams);
                 $("#foodId").val(ui.item.foodId);
             }

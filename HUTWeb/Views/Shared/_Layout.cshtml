@@ -77,6 +77,23 @@
         setTime();
 
         @* refresh clock every minute *@
-        setInterval(setTime, 60000);        
+        setInterval(setTime, 60000);
+
+        @* this code is not good for a production app, but is a hack for ourselves *@
+        var keepAlive = function () {
+            $.ajax({
+                url: "@Url.Action("KeepAlive", "KeepAlive")",
+                type: "GET",
+                dataType: "json",
+                async: true,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                   var nothing = data;
+                }
+            });
+        };
+
+        setInterval(keepAlive, 300000);
     })
 </script>
