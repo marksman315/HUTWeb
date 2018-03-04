@@ -13,16 +13,6 @@ namespace HUTWeb.Controllers
     {
         public ActionResult Index()
         {
-            //FoodHandler handler = new FoodHandler();
-            //List<Food> foods = handler.GetListOfFoods();
-
-            //FoodListModel model = new FoodListModel();
-
-            //foreach (var food in foods)
-            //{
-            //    model.FoodNames.Add(food.Description);
-            //}
-
             return View("Foods");
         }
 
@@ -35,24 +25,18 @@ namespace HUTWeb.Controllers
             return Json(foods, JsonRequestBehavior.AllowGet);            
         }
 
-        // POST: Food/Create
         [HttpPost]
-        public ActionResult InsertFood(string description, int caloriesPer100Grams)
-        {
-            try
-            {
-                // TODO: Add insert logic here
+        public JsonResult Insert(string description, int caloriesPer100Grams)
+        {           
+            FoodHandler handler = new FoodHandler();
+            handler.Insert(description, caloriesPer100Grams);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            // temporary
+            return Json("Success");
         }        
 
         [HttpPut]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Update(string description, int caloriesPer100Grams, int foodId)
         {
             try
             {
@@ -67,7 +51,7 @@ namespace HUTWeb.Controllers
         }      
         
         [HttpDelete]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {

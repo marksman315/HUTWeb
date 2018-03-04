@@ -12,18 +12,18 @@
     <div class="col-md-12 ui-widget">
         <h4>Search</h4>        
         <input id="searchFood" class="FoodsText" type="text" maxlength="200" />        
-        <button class="btn btn-info" onclick="selectFood()" type="button">Select</button>
     </div>
     <br />
     <div class="col-md-12">
         <h4>Add/Edit Food</h4>
         <h5>Food Name</h5>
-        <input id="editableFood" class="FoodsText" type="text" maxlength="200" />
+        <input id="foodDescription" class="FoodsText" type="text" maxlength="200" required />
         <br />
         <h5>Calories Per 100 Grams</h5>
-        <input id="caloriesPer100Grams" type="number" />
+        <input id="caloriesPer100Grams" type="number" required />
         <input id="foodId" type="number" hidden />
-        <button class="btn btn-success" onclick="saveFood()" type="button">Save</button>
+        <button class="btn btn-success" onclick="addFood()" type="button">Save as new Food</button>&nbsp;
+        <button class="btn btn-warning" onclick="editFood()" type="button">Save Edits</button>
     </div>
     <br />
 </div>
@@ -53,11 +53,66 @@
             },
             minLength: 1,
             select: function (event, ui) {
-                $("#editableFood").val(ui.item.label);
+                $("#foodDescription").val(ui.item.label);
                 $("#caloriesPer100Grams").val(ui.item.caloriesPer100Grams);
                 $("#foodId").val(ui.item.foodId);
             }
         });
     })
+
+    function addFood() {
+        var d = $("#foodDescription").val();
+        var c = $("#caloriesPer100Grams").val();
+
+        var json = {
+            description: d,
+            caloriesPer100Grams: c
+        };
+
+        $.ajax({
+            url: "@Url.Action("Insert", "Food")",
+            dataType: "json",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(json),
+            async: true,
+            processData: false,
+            cache: false,
+            success: function (data) {
+                @* not sure what to return yet *@
+                $("#foodDescription").val(null);
+                $("#caloriesPer100Grams").val(null);
+            }
+        })
+    }
+
+    function editFood() {
+        var d = $("#foodDescription").val();
+        var c = $("#caloriesPer100Grams").val();
+        var i = $("#foodId").val();
+
+        var json = {
+            description: d,
+            caloriesPer100Grams: c,
+            foodId: i
+        };
+
+        $.ajax({
+            url: "@Url.Action("Update", "Food")",
+            dataType: "json",
+            type: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(json),
+            async: true,
+            processData: false,
+            cache: false,
+            success: function (data) {
+                @* not sure what to return yet *@
+                $("#foodDescription").val(null);
+                $("#caloriesPer100Grams").val(null);
+                $("#foodId").val(null);
+            }
+        })
+    }
 
 </script>

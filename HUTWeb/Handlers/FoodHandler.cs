@@ -36,6 +36,24 @@ namespace HUTWeb.Handlers
             mustRefreshCache = true;
         }
 
+        public void Update(string description, int caloriesPer100Grams, int foodId)
+        {
+            Food foodModel = new Food() { CaloriesPer100Grams = caloriesPer100Grams, Description = description, FoodId = foodId };
+
+            Update(foodModel);
+        }
+
+        public void Update(Food foodModel)
+        {
+            Uri uri = new Uri(this.BaseWebAPIURL + "Food");
+
+            // the result is always going to be null for now
+            var result = HttpHelper.PutValues(uri, foodModel).Result;
+
+            // set the cache to be reset. Think about doing this piecemeal and add to cache instead or reset the whole thing
+            mustRefreshCache = true;
+        }
+
         public List<Food> GetListOfFoods()
         {
             List<Food> foods = new List<Food>();

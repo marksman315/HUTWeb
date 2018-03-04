@@ -36,6 +36,24 @@ namespace HUTWeb.Helpers
             return null;
         }
 
+        public static async Task<string> PutValues(Uri uri, object model)
+        {
+            var httpContent = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+
+            using (var client = GetHttpClient())
+            {
+                var httpResponse = await client.PutAsync(uri, httpContent).ConfigureAwait(false);
+
+                if (httpResponse.Content != null)
+                {
+                    var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    return responseContent.ToString();
+                }
+            }
+
+            return null;
+        }
+
         private static HttpClient GetHttpClient()
         {
             HttpClient client = new HttpClient();            
@@ -44,7 +62,5 @@ namespace HUTWeb.Helpers
     
             return client;             
         }
-
-
     }
 }
