@@ -36,18 +36,13 @@ namespace HUTWeb.Controllers
         }        
 
         [HttpPut]
-        public ActionResult Update(string description, int caloriesPer100Grams, int foodId)
-        {
-            try
-            {
-                // TODO: Add update logic here
+        public JsonResult Edit(Food model)
+        {            
+            FoodHandler handler = new FoodHandler();
+            handler.Update(model);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            // temporary
+            return Json("Success");            
         }      
         
         [HttpDelete]

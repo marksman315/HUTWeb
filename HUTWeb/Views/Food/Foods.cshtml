@@ -10,8 +10,10 @@
 <br />
 <div id="foodsDiv">
     <div class="col-md-12 ui-widget">
-        <h4>Search</h4>        
-        <input id="searchFood" class="FoodsText" type="text" maxlength="200" />        
+        <h4>Search</h4>
+        <input id="searchFood" class="FoodsText" type="text" maxlength="200" />
+        <br />
+        <button class="btn btn-success" onclick="clearSearch()" type="button">Clear Search</button>
     </div>
     <br />
     <div class="col-md-12">
@@ -20,12 +22,20 @@
         <input id="foodDescription" class="FoodsText" type="text" maxlength="200" required />
         <br />
         <h5>Calories Per 100 Grams</h5>
-        <input id="caloriesPer100Grams" type="number" required />
+        <input id="caloriesPer100Grams" type="number" />
         <input id="foodId" type="number" hidden />
         <button class="btn btn-success" onclick="addFood()" type="button">Save as new Food</button>&nbsp;
         <button class="btn btn-warning" onclick="editFood()" type="button">Save Edits</button>
     </div>
     <br />
+    <div class="col-md-12">
+        <h4>Quick Calculation</h4>
+        <h5>Grams</h5>
+        <input id="grams" type="number" />
+        <button class="btn btn-info" onclick="calculate()" type="button">Calculate</button>
+        <br/>
+        <div id="calories"></div>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -60,6 +70,18 @@
         });
     })
 
+    function clearSearch() {
+        $("#searchFood").val(null);
+    }
+
+    function calculate() {
+        var c = $("#caloriesPer100Grams").val();
+        var g = $("#grams").val();
+        var amount = Math.round((g / 100) * c);
+
+        $("#calories").html(amount + " calories for " + g + " grams");
+    }
+
     function addFood() {
         var d = $("#foodDescription").val();
         var c = $("#caloriesPer100Grams").val();
@@ -92,13 +114,13 @@
         var i = $("#foodId").val();
 
         var json = {
-            description: d,
-            caloriesPer100Grams: c,
-            foodId: i
+            Description: d,
+            CaloriesPer100Grams: c,
+            FoodId: i
         };
 
         $.ajax({
-            url: "@Url.Action("Update", "Food")",
+            url: "@Url.Action("Edit", "Food")",
             dataType: "json",
             type: "PUT",
             contentType: "application/json",
@@ -111,6 +133,7 @@
                 $("#foodDescription").val(null);
                 $("#caloriesPer100Grams").val(null);
                 $("#foodId").val(null);
+                $("#searchFood").val(null);
             }
         })
     }
