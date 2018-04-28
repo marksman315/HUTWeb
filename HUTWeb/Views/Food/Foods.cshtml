@@ -9,14 +9,14 @@
 <h3>Search for an existing food item to edit or add a new food</h3>
 <br />
 <div id="foodsDiv">
-    <div class="col-md-12 ui-widget">
+    <div class="col-md-6 ui-widget">
         <h4>Search</h4>
+        <h5>Enter the name to find the food</h5>
         <input id="searchFood" class="FoodsText" type="text" maxlength="200" />
         <br />
         <button class="btn btn-success" onclick="clearSearch()" type="button">Clear Search</button>
-    </div>
-    <br />
-    <div class="col-md-12">
+    </div>   
+    <div class="col-md-6">
         <h4>Add/Edit Food</h4>
         <h5>Food Name</h5>
         <input id="foodDescription" class="FoodsText" type="text" maxlength="200" required />
@@ -28,7 +28,7 @@
         <button class="btn btn-warning" onclick="editFood()" type="button">Save Edits</button>
     </div>
     <br />
-    <div class="col-md-12">
+    <div class="col-md-6 col-md-offset-6">
         <h4>Quick Calculation</h4>
         <h5>Grams</h5>
         <input id="grams" type="number" />
