@@ -91,5 +91,29 @@ namespace HUTWeb.Handlers
                 return foods.Where(x => x.Description.ToLower().Contains(searchTerm.ToLower())).ToList<Food>();
             }
         }
+
+        public Food RetrieveUnlistedFood(string description)
+        {
+            Uri uri = new Uri(this.BaseWebAPIURL + "Food/GetUnlistedFood/" + description);
+
+            var result = HttpHelper.GetValues(uri).Result;
+
+            if (result != null)
+            {
+                List<Food> newFoods = JsonConvert.DeserializeObject<List<Food>>(result);
+
+                // assumes that the cache has something in it
+                List<Food> foods = foodCache["foods"] as List<Food>;
+                
+                //TODO: will need to get this in alphabetical order
+                foods.Add(newFoods[0]);
+
+                foodCache.Set("foods", foods, DateTimeOffset.Now.AddHours(4));
+
+                return newFoods[0];
+            }
+
+            return null;
+        }
     }
 }

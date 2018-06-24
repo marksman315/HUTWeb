@@ -26,6 +26,15 @@ namespace HUTWeb.Controllers
         }
 
         [HttpPost]
+        public JsonResult RetrieveAndSaveUnlistedFood(string description)
+        {
+            FoodHandler handler = new FoodHandler();
+            Food food = handler.RetrieveUnlistedFood(description);
+
+            return Json(food);
+        }
+
+        [HttpPost]
         public JsonResult Insert(string description, int caloriesPer100Grams)
         {           
             FoodHandler handler = new FoodHandler();

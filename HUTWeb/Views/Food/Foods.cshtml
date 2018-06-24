@@ -14,7 +14,10 @@
         <h5>Enter the name to find the food</h5>
         <input id="searchFood" class="FoodsText" type="text" maxlength="200" />
         <br />
+        <button class="btn btn-warning" onclick="findFoodNotInList()" type="button">Find Food Not in List</button>&nbsp;
         <button class="btn btn-success" onclick="clearSearch()" type="button">Clear Search</button>
+        <br />
+        <image id="photoURL" src="" class="img-thumbnail img-from-service" />
     </div>   
     <div class="col-md-6">
         <h4>Add/Edit Food</h4>
@@ -25,10 +28,8 @@
         <input id="caloriesPer100Grams" type="number" />
         <input id="foodId" type="number" hidden />
         <button class="btn btn-success" onclick="addFood()" type="button">Save as new Food</button>&nbsp;
-        <button class="btn btn-warning" onclick="editFood()" type="button">Save Edits</button>
-    </div>
-    <br />
-    <div class="col-md-6 col-md-offset-6">
+        <button class="btn btn-warning" onclick="editFood()" type="button">Save Edits</button>    
+        <br />
         <h4>Quick Calculation</h4>
         <h5>Grams</h5>
         <input id="grams" type="number" />
@@ -55,7 +56,8 @@
                                 @* must use "label" or else the description will not show *@
                                 label: item.Description,
                                 caloriesPer100Grams: item.CaloriesPer100Grams,
-                                foodId: item.FoodId
+                                foodId: item.FoodId,
+                                photoURL: item.PhotoURL
                             };
                         }));
                     }
@@ -66,6 +68,7 @@
                 $("#foodDescription").val(ui.item.label);
                 $("#caloriesPer100Grams").val(ui.item.caloriesPer100Grams);
                 $("#foodId").val(ui.item.foodId);
+                $("#photoURL").attr("src", ui.item.photoURL);
             }
         });
     })
@@ -135,6 +138,31 @@
                 $("#foodId").val(null);
                 $("#searchFood").val(null);
             }
+        })
+    }
+
+    function findFoodNotInList() {
+        var d = $("#searchFood").val();
+
+        var json = {
+            description: d           
+        };
+
+        $.ajax({
+            url: "@Url.Action("RetrieveAndSaveUnlistedFood", "Food")",
+            dataType: "json",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(json),
+            async: true,
+            processData: false,
+            cache: false,
+            success: function (data) {                
+                $("#foodDescription").val(data.Description);
+                $("#caloriesPer100Grams").val(data.CaloriesPer100Grams);
+                $("#foodId").val(data.FoodId);
+                $("#photoURL").attr("src", data.PhotoURL);                
+            }            
         })
     }
 
