@@ -3,8 +3,15 @@
     padding-bottom: 20px;
 }
 
+.body-background {
+    background-image: url('../Images/rampsandbread.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
 /* Set padding to keep content from hitting the edges */
-.body-content {
+.div-content {
     padding-left: 15px;
     padding-right: 15px;
 }
@@ -45,5 +52,10 @@ textarea {
 }
 
 .FoodsText {
-    width: 800px;
+    width: 100%;
+}
+
+.img-from-service {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

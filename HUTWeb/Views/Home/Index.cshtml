@@ -9,7 +9,7 @@
 
 <br/>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm-12 col-xs-12">
         @using (Html.BeginForm())
         {
             @Html.DropDownListFor(x => x.Persons, Model.Persons, new { @class = "dropdown" })
@@ -48,7 +48,7 @@
         }
     </div>
       
-    <div class="col-md-8">
+    <div class="col-md-8 col-sm-12 col-xs-12">
         <canvas id="myWeightChart" width="400" height="300"></canvas>
         <canvas id="myCalorieChart" width="400" height="300"></canvas>
     </div>
@@ -58,6 +58,9 @@
 
 <script type="text/javascript">
 
+    // global declarations needed so the old charts can be destroyed to prevent flashing and layering
+    var weightChart;
+    var calorieChart;
 
     function addWeight() {
         var p = $("#Persons :selected").val();
@@ -161,8 +164,13 @@
         })
     }
 
-    function populateWeightChart(data) {
-        var ctx = document.getElementById('myWeightChart').getContext('2d');
+    function populateWeightChart(data) {        
+        var ctx = document.getElementById('myWeightChart').getContext('2d');  
+
+        // needed global declaration so it may use destroy function
+        if (weightChart != null) {
+            weightChart.destroy();
+        }
 
         var allXValues = []; // create array here
         $.each(data, function (index, value) {
@@ -174,7 +182,7 @@
             allYValues.push(value.y); //push values here
         });
 
-        var chart = new Chart(ctx, {
+        weightChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: allXValues,
@@ -225,7 +233,12 @@
     }
 
     function populateCalorieChart(data) {
-        var ctx = document.getElementById('myCalorieChart').getContext('2d');
+        var ctx = document.getElementById('myCalorieChart').getContext('2d');        
+
+        // needed global declaration so it may use destroy function
+        if (calorieChart != null) {
+            calorieChart.destroy();
+        }
 
         var allXValues = []; // create array here
         $.each(data, function (index, value) {
@@ -237,7 +250,7 @@
             allYValues.push(value.y); //push values here
         });
 
-        var chart = new Chart(ctx, {
+        calorieChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: allXValues,
@@ -276,6 +289,6 @@
 
         return colors;
     }
-
+    
 </script>
 

@@ -32,7 +32,7 @@
         appInsights.trackPageView();
     </script>
 </head>
-<body>
+<body class="body-background">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -53,12 +53,8 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Home Use Tracker</p>
-        </footer>
+    <div class="container div-content">
+        @RenderBody()        
     </div>
 </body>
 </html>
