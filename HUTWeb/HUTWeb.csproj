@@ -160,12 +160,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Handlers\KeepAliveHandler.cs" />
+    <Compile Include="Handlers\RecipeHandler.cs" />
     <Compile Include="Helpers\HttpHelper.cs" />
     <Compile Include="Handlers\BaseHandler.cs" />
     <Compile Include="Handlers\CalorieCountHandler.cs" />
     <Compile Include="Handlers\FoodHandler.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Handlers\PersonHandler.cs" />
+    <Compile Include="Models\RecipeModel.cs" />
     <Compile Include="Models\WeightAndDateModel.cs" />
     <Compile Include="Handlers\WeightHandler.cs" />
     <Compile Include="Models\XYModel.cs" />

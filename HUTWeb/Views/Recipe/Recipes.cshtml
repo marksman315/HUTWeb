@@ -1,8 +1,20 @@
-﻿
+﻿@using HUTWeb.Models;
+@model RecipeModel
+
 @{
     ViewBag.Title = "Recipes";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Recipes</h2>
+<br />
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        @using (Html.BeginForm())
+        {
+            @Html.DropDownListFor(x => x.ActiveRecipes, Model.ActiveRecipes, new { @class = "dropdown" })
+            <button class="btn btn-success" onclick="selectRecipe()" type="button">Select</button>
+            <button class="btn btn-warning" onclick="addNewRecipe()" type="button">Add New</button>
+        }
+    </div>
+</div>
 

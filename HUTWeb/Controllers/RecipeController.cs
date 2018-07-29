@@ -3,14 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using HUTModels;
+using HUTWeb.Handlers;
+using HUTWeb.Models;
 
 namespace HUTWeb.Controllers
 {
     public class RecipeController : Controller
     {
-        // GET: Recipe
-        public ActionResult Recipes()
+        public ActionResult Index()
         {
+            RecipeHandler handler = new RecipeHandler();
+            RecipeModel model = new RecipeModel();
+
+            List<Recipe> list = handler.GetListOfActiveRecipes();
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            foreach (Recipe p in list)
+            {
+                items.Add(new SelectListItem() { Text = p.Description + " " + p.DateEntered.ToString("MM/dd/yyyy"), Value = p.RecipeId.ToString() });
+            }
+
+            model.ActiveRecipes = items;
+
+            return View("Recipes", model);
+        }        
+       
+        [HttpGet]
+        public ActionResult GetRecipeWithIngredients(int recipeId)
+        {
+
             return View();
         }
 
