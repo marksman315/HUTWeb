@@ -8,7 +8,7 @@
     background-size: auto;
     background-repeat: no-repeat;
     background-position: left top;
-    overflow: hidden;
+    overflow: inherit;
 }
 
 /* Set padding to keep content from hitting the edges */
