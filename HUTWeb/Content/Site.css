@@ -5,9 +5,10 @@
 
 .body-background {
     background-image: url('../Images/rampsandbread.jpeg');
-    background-size: cover;
+    background-size: auto;
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: left top;
+    overflow: inherit;
 }
 
 /* Set padding to keep content from hitting the edges */

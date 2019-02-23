@@ -3,8 +3,8 @@ using System.Web.Mvc;
 
 namespace HUTWeb.Models
 {
-    public class HomeModel
+    public class RecipeModel
     {
-        public List<SelectListItem> Persons { get; set; }
+        public List<SelectListItem> ActiveRecipes { get; set; }
     }
 }
